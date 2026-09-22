@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Diamonds Gym — premium fitness experience in Anpara, Sonbhadra. Demo website.">
+<title>DIAMONDS GYM — Train Strong</title>
+
+<style>
+:root{
+  --bg:#070807;
+  --panel:#101210;
+  --text:#f4f5ef;
+  --muted:#9b9f96;
+  --lime:#d9ff32;
+  --line:rgba(255,255,255,.1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+button,input,textarea,select{font:inherit}
+
+.noise{
+  position:fixed;inset:0;pointer-events:none;opacity:.035;z-index:20;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+nav{
+  position:fixed;top:14px;left:50%;transform:translateX(-50%);
+  width:min(1160px,calc(100% - 28px));z-index:30;
+  padding:13px 16px;border:1px solid var(--line);
+  background:rgba(8,9,8,.72);backdrop-filter:blur(20px);
+  border-radius:18px;display:flex;align-items:center;justify-content:space-between;
+}
+.logo{font-weight:900;letter-spacing:-1px}
+.logo span{color:var(--lime)}
+.navlinks{display:flex;gap:25px;font-size:13px;color:#c9ccc4}
+.navlinks a:hover{color:var(--lime)}
+.navcta{
+  background:var(--lime);color:#080908;padding:10px 15px;
+  border-radius:12px;font-weight:800;font-size:13px;
+}
+
+.hero{
+  min-height:100vh;position:relative;display:grid;place-items:center;
+  overflow:hidden;padding:130px 20px 70px;
+}
+.hero-bg{
+  position:absolute;width:650px;height:650px;border-radius:50%;
+  background:radial-gradient(circle,rgba(217,255,50,.16),transparent 62%);
+  filter:blur(8px);animation:pulse 5s ease-in-out infinite;
+}
+@keyframes pulse{50%{transform:scale(1.12);opacity:.7}}
+
+.hero-content{position:relative;z-index:2;text-align:center;max-width:1000px}
+.eyebrow{
+  color:var(--lime);font-size:12px;font-weight:800;
+  letter-spacing:3px;margin-bottom:22px;
+}
+h1{
+  font-size:clamp(58px,11vw,150px);line-height:.82;
+  letter-spacing:-.075em;font-weight:950;
+}
+.hero h1 span{color:var(--lime)}
+.hero-sub{
+  max-width:600px;margin:30px auto;color:var(--muted);
+  font-size:17px;line-height:1.65;
+}
+.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:15px 21px;border-radius:13px;font-weight:850;
+  border:1px solid var(--line);transition:.3s;
+}
+.btn-primary{background:var(--lime);color:#070807}
+.btn-secondary{background:rgba(255,255,255,.04)}
+.btn:hover{transform:translateY(-3px)}
+
+.orb{
+  position:absolute;width:230px;height:230px;border-radius:50%;
+  right:9%;top:27%;
+  background:radial-gradient(circle at 30% 25%,#fff 0 2%,#d9ff32 8%,#647511 30%,#111 68%);
+  box-shadow:0 0 80px rgba(217,255,50,.16),inset -35px -25px 55px #000;
+  animation:float 7s ease-in-out infinite;
+  opacity:.72;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0) rotate(0)}
+  50%{transform:translateY(-30px) rotate(12deg)}
+}
+
+.stats{
+  max-width:1160px;margin:-35px auto 0;position:relative;z-index:4;
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border:1px solid var(--line);background:rgba(255,255,255,.025);
+  border-radius:20px;overflow:hidden;
+}
+.stat{padding:25px;text-align:center;border-right:1px solid var(--line)}
+.stat:last-child{border:0}
+.stat strong{display:block;font-size:27px;color:var(--lime)}
+.stat span{color:var(--muted);font-size:12px}
+
+section{max-width:1160px;margin:auto;padding:130px 20px}
+.section-tag{color:var(--lime);font-size:11px;letter-spacing:3px;font-weight:800;margin-bottom:15px}
+.section-title{
+  font-size:clamp(40px,7vw,82px);line-height:.9;
+  letter-spacing:-.06em;max-width:850px;
+}
+.section-copy{color:var(--muted);max-width:600px;line-height:1.7;margin-top:25px}
+
+.grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:50px;
+}
+.card{
+  min-height:260px;padding:27px;border:1px solid var(--line);
+  background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.015));
+  border-radius:22px;position:relative;overflow:hidden;
+  transition:transform .5s,border-color .5s;
+}
+.card:hover{transform:translateY(-8px) rotateX(2deg);border-color:rgba(217,255,50,.4)}
+.card:after{
+  content:"";position:absolute;width:150px;height:150px;
+  right:-60px;bottom:-60px;border-radius:50%;
+  background:rgba(217,255,50,.12);filter:blur(30px)
+}
+.icon{font-size:30px;margin-bottom:65px}
+.card h3{font-size:22px;margin-bottom:9px}
+.card p{color:var(--muted);font-size:14px;line-height:1.6}
+
+.memberships{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:50px
+}
+.plan{
+  border:1px solid var(--line);border-radius:22px;padding:30px;
+  background:#0d0f0d;transition:.4s;
+}
+.plan.featured{border-color:var(--lime);box-shadow:0 0 40px rgba(217,255,50,.07)}
+.plan h3{font-size:24px}
+.price{font-size:45px;font-weight:900;margin:25px 0;color:var(--lime)}
+.price small{font-size:13px;color:var(--muted);font-weight:400}
+.plan ul{list-style:none;color:var(--muted);line-height:2;font-size:14px}
+.plan li:before{content:"✓";color:var(--lime);margin-right:9px}
+
+.trial{
+  background:linear-gradient(135deg,#15180f,#0c0d0c);
+  border:1px solid rgba(217,255,50,.18);border-radius:30px;
+  padding:45px;display:grid;grid-template-columns:.8fr 1.2fr;gap:50px;
+}
+.form{display:grid;gap:12px}
+.form input,.form textarea,.form select{
+  width:100%;background:#080908;border:1px solid var(--line);
+  color:white;padding:14px;border-radius:12px;outline:none;
+}
+.form input:focus,.form textarea:focus,.form select:focus{border-color:var(--lime)}
+.form textarea{min-height:100px;resize:vertical}
+.check{font-size:12px;color:var(--muted);display:flex;gap:8px}
+.check input{width:auto}
+
+.location{
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:50px
+}
+.map{
+  min-height:330px;border-radius:24px;border:1px solid var(--line);
+  display:grid;place-items:center;background:
+  linear-gradient(rgba(217,255,50,.03) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(217,255,50,.03) 1px,transparent 1px);
+  background-size:40px 40px;
+}
+.map div{text-align:center;color:var(--muted)}
+.map b{display:block;color:var(--lime);font-size:40px;margin-bottom:10px}
+
+.faq{margin-top:45px}
+details{border-bottom:1px solid var(--line);padding:20px 0}
+summary{cursor:pointer;font-weight:700}
+details p{color:var(--muted);padding-top:13px;line-height:1.6;font-size:14px}
+
+footer{
+  padding:50px 20px;border-top:1px solid var(--line);
+  color:var(--muted);font-size:12px;
+}
+.footer-inner{max-width:1160px;margin:auto;display:flex;justify-content:space-between;gap:20px}
+.demo{color:#777;max-width:650px;line-height:1.6}
+
+.reveal{
+  opacity:0;transform:translateY(45px);
+  transition:opacity .8s ease,transform .8s ease;
+}
+.reveal.show{opacity:1;transform:none}
+
+@media(max-width:800px){
+  .navlinks{display:none}
+  .orb{width:150px;height:150px;right:-25px;top:24%;opacity:.5}
+  .stats{grid-template-columns:1fr;margin:0 14px}
+  .stat{border-right:0;border-bottom:1px solid var(--line)}
+  section{padding:90px 18px}
+  .grid,.memberships{grid-template-columns:1fr}
+  .trial,.location{grid-template-columns:1fr;padding:28px}
+  .footer-inner{flex-direction:column}
+  h1{font-size:64px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+}
+</style>
+</head>
+
+<body>
+<div class="noise"></div>
+
+<nav>
+  <a class="logo" href="#">DIAMONDS<span>.</span></a>
+  <div class="navlinks">
+    <a href="#experience">Experience</a>
+    <a href="#membership">Membership</a>
+    <a href="#trial">Free Trial</a>
+    <a href="#location">Location</a>
+  </div>
+  <a class="navcta" href="#trial">Book Trial</a>
+</nav>
+
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="orb"></div>
+
+  <div class="hero-content reveal">
+    <div class="eyebrow">ANPARA · SONBHADRA · UP</div>
+    <h1>TRAIN<br><span>STRONG.</span></h1>
+    <p class="hero-sub">
+      A modern training environment designed to help you build consistency,
+      strength and confidence — one session at a time.
+    </p>
+    <div class="actions">
+      <a class="btn btn-primary" href="#trial">Book a Free Trial →</a>
+      <a class="btn btn-secondary" href="#experience">Explore the Gym</a>
+    </div>
+  </div>
+</header>
+
+<div class="stats reveal">
+  <div class="stat"><strong>01</strong><span>FREE TRIAL EXPERIENCE</span></div>
+  <div class="stat"><strong>02</strong><span>FLEXIBLE MEMBERSHIP</span></div>
+  <div class="stat"><strong>03</strong><span>ANPARA LOCATION</span></div>
+</div>
+
+<section id="experience">
+  <div class="reveal">
+    <div class="section-tag">THE EXPERIENCE</div>
+    <h2 class="section-title">Built for people who are ready to show up.</h2>
+    <p class="section-copy">
+      Train in a focused environment with the essentials you need for
+      strength, conditioning and regular workouts.
+    </p>
+  </div>
+
+  <div class="grid">
+    <article class="card reveal">
+      <div class="icon">◈</div>
+      <h3>Strength</h3>
+      <p>Focused training for people working toward stronger, more capable movement.</p>
+    </article>
+    <article class="card reveal">
+      <div class="icon">↗</div>
+      <h3>Consistency</h3>
+      <p>A dedicated environment that makes it easier to turn training into a routine.</p>
+    </article>
+    <article class="card reveal">
+      <div class="icon">✦</div>
+      <h3>Community</h3>
+      <p>A place to train alongside other people pursuing their own fitness goals.</p>
+    </article>
+    <article class="card reveal">
+      <div class="icon">01</div>
+      <h3>Training Space</h3>
+      <p>Illustrative demo card — actual facilities should be confirmed by the gym owner.</p>
+    </article>
+    <article class="card reveal">
+      <div class="icon">02</div>
+      <h3>Equipment</h3>
+      <p>Illustrative demo card — final equipment list requires owner verification.</p>
+    </article>
+    <article class="card reveal">
+      <div class="icon">03</div>
+      <h3>Personal Training</h3>
+      <p>Ask the gym about current personal-training availability and pricing.</p>
+    </article>
+  </div>
+</section>
+
+<section id="membership">
+  <div class="reveal">
+    <div class="section-tag">MEMBERSHIP</div>
+    <h2 class="section-title">Choose your training rhythm.</h2>
+    <p class="section-copy">
+      Plans below are placeholders for the demo. Final prices and inclusions
+      should be supplied and approved by Diamonds Gym.
+    </p>
+  </div>
+
+  <div class="memberships">
+    <article class="plan reveal">
+      <h3>Monthly</h3>
+      <div class="price">₹— <small>/ month</small></div>
+      <ul><li>Gym access</li><li>Standard training</li><li>Flexible renewal</li></ul>
+    </article>
+
+    <article class="plan featured reveal">
+      <h3>Quarterly</h3>
+      <div class="price">₹— <small>/ quarter</small></div>
+      <ul><li>Gym access</li><li>Extended commitment</li><li>Plan details on approval</li></ul>
+    </article>
+
+    <article class="plan reveal">
+      <h3>Annual</h3>
+      <div class="price">₹— <small>/ year</small></div>
+      <ul><li>Gym access</li><li>Long-term membership</li><li>Final benefits to be confirmed</li></ul>
+    </article>
+  </div>
+</section>
+
+<section id="trial">
+  <div class="trial reveal">
+    <div>
+      <div class="section-tag">START HERE</div>
+      <h2 class="section-title">Try the experience.</h2>
+      <p class="section-copy">
+        Leave your details and the gym team can contact you about a free trial.
+      </p>
+      <br>
+      <p style="color:#777;font-size:12px;line-height:1.6">
+        Demo form only. Production version can connect this form to a secure
+        database and the owner's approved WhatsApp Business workflow.
+      </p>
+    </div>
+
+    <form class="form" id="trialForm">
+      <input required name="name" placeholder="Your name">
+      <input required name="phone" type="tel" placeholder="Phone number">
+      <select name="goal">
+        <option value="">Fitness goal</option>
+        <option>Strength training</option>
+        <option>General fitness</option>
+        <option>Weight management</option>
+        <option>Other</option>
+      </select>
+      <select name="day">
+        <option value="">Preferred day</option>
+        <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
+        <option>Thursday</option><option>Friday</option><option>Saturday</option>
+      </select>
+      <input name="time" placeholder="Preferred time">
+      <textarea name="message" placeholder="Anything you'd like the gym to know?"></textarea>
+      <label class="check">
+        <input required type="checkbox">
+        <span>I agree that Diamonds Gym may contact me about the trial.</span>
+      </label>
+      <button class="btn btn-primary" type="submit">Request Free Trial →</button>
+      <p id="success" style="display:none;color:var(--lime);font-weight:700">
+        ✓ Request received — demo submission successful.
+      </p>
+    </form>
+  </div>
+</section>
+
+<section id="location">
+  <div class="reveal">
+    <div class="section-tag">FIND US</div>
+    <h2 class="section-title">Train close to home.</h2>
+  </div>
+
+  <div class="location">
+    <div class="map reveal">
+      <div>
+        <b>⌖</b>
+        <p>Diamonds Gym</p>
+        <p>Anpara TPS, Sonbhadra, Uttar Pradesh</p>
+        <small>Verified map pin to be added after owner confirmation.</small>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="section-tag">CONTACT</div>
+      <h3 style="font-size:30px;margin-bottom:20px">Ready to train?</h3>
+      <p>
+        Contact details, WhatsApp number and opening hours will be added
+        after verification with the gym owner.
+      </p>
+      <br>
+      <a class="btn btn-primary" href="#trial">Book Free Trial</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="reveal">
+    <div class="section-tag">FAQ</div>
+    <h2 class="section-title">Questions, answered.</h2>
+  </div>
+
+  <div class="faq">
+    <details class="reveal">
+      <summary>How do I book a trial?</summary>
+      <p>Use the Free Trial form above. The production version can send the lead to the gym's approved contact workflow.</p>
+    </details>
+    <details class="reveal">
+      <summary>How much does membership cost?</summary>
+      <p>Prices are intentionally not shown in this demo because they must be confirmed by Diamonds Gym.</p>
+    </details>
+    <details class="reveal">
+      <summary>Where is the gym?</summary>
+      <p>The demo location is Anpara TPS, Sonbhadra, Uttar Pradesh. The final map pin should be verified by the owner.</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <strong style="color:white">DIAMONDS<span style="color:var(--lime)">.</span></strong>
+    <p class="demo">
+      Demo website concept — details, plans, photos, facilities, opening hours
+      and prices require owner approval. No claims or testimonials on this demo
+      should be treated as verified business information.
+    </p>
+    <span>© 2026 Demo</span>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting) entry.target.classList.add("show");
+  });
+},{threshold:.12});
+
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+
+document.getElementById("trialForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  document.getElementById("success").style.display="block";
+  e.target.querySelector("button").textContent="Request Submitted ✓";
+});
+
+document.querySelectorAll(".card").forEach(card=>{
+  card.addEventListener("pointermove",e=>{
+    if(window.innerWidth<800)return;
+    const r=card.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5;
+    const y=(e.clientY-r.top)/r.height-.5;
+    card.style.transform=`perspective(700px) rotateX(${-y*5}deg) rotateY(${x*5}deg) translateY(-8px)`;
+  });
+  card.addEventListener("pointerleave",()=>{
+    card.style.transform="";
+  });
+});
+</script>
+</body>
+</html>
